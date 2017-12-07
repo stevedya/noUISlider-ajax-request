@@ -61,18 +61,16 @@
         //aka the get request, goes into the open function
         var url = 'get-books.php?valueOne=' + valueOne + '&valueTwo=' + valueTwo;
 
-        //create request object
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            //if request is successful render the stuff in the element
-            if (this.readyState == 4 && this.status == 200) {
-                //insert results into results div (on this page this would be the div all books are in)
-                document.getElementById("results").innerHTML = this.responseText;
+        $.ajax({
+            url: "get-books.php",
+            method: "GET",
+            data: 'valueOne=' + valueOne + '&valueTwo=' + valueTwo,
+            dataType: "text",
+            success: function(result) {
+                $('#results').html(result);
             }
-        };
-        //Used a get with the variables above and sends to a separate page that has the sql query
-        xhttp.open("GET", url, true);
-        xhttp.send();
+        });
+
     });
 </script>
 </body>
